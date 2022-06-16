@@ -1,0 +1,56 @@
+﻿@model TesteEngegraph.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+<h4>Cadastro de Pessoa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CPF" class="control-label"></label>
+                <input asp-for="CPF" class="form-control" />
+                <span asp-validation-for="CPF" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dt_nascimento" class="control-label">Data de nascimento</label>
+                <input asp-for="Dt_nascimento" class="form-control" />
+                <span asp-validation-for="Dt_nascimento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sexo" class="control-label"></label>
+                <select class="form-select" asp-for="Sexo">
+                  <option  selected value="F">Feminino</option>
+                  <option  value="M">Masculino</option>
+                  <span asp-validation-for="Sexo" class="text-danger"></span>
+                </select>
+            </div>
+            <div class="form-check form-switch">                
+                <label asp-for="Validacao" class="control-label">Ativo</label>
+                <input asp-for="Validacao" class="form-check-input"  role="switch" type="checkbox" /> 
+                <span asp-validation-for="Validacao"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Tipo_Pessoa.Descricao" class="control-label"></label>
+                <input asp-for="Tipo_Pessoa.Descricao" class="form-control" />
+                <span asp-validation-for="Tipo_Pessoa.Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-top: 5px">
+                <input type="submit" value="Create" class="btn btn-outline-success" />
+                <button type="button" class="btn btn-outline-danger" onclick="location.href='@Url.Action("Index", "Pessoas")'">Cancelar</button>  
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
