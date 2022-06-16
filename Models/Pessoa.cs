@@ -8,6 +8,6 @@
         public DateTime Dt_nascimento { get; set; }
         public string Sexo { get; set; }
         public virtual Tipo_Pessoa Tipo_Pessoa { get; set; }
-        public bool validacao { get; set; }
+        public bool Validacao { get; set; } 
     }
 }

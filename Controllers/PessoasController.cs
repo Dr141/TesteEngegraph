@@ -56,7 +56,7 @@ namespace TesteEngegraph.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CPF,Nome,Dt_nascimento,Sexo")] Pessoa pessoa)
+        public async Task<IActionResult> Create([Bind("Id,CPF,Nome,Dt_nascimento,Sexo,validacao")] Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace TesteEngegraph.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CPF,Nome,Dt_nascimento,Sexo")] Pessoa pessoa)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CPF,Nome,Dt_nascimento,Sexo,validacao")] Pessoa pessoa)
         {
             if (id != pessoa.Id)
             {
