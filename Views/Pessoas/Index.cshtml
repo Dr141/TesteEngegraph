@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dt_nascimento).Replace("Dt_nascimento","Data de nascimento") 
+                @Html.DisplayNameFor(model => model.Dt_nascimento).Replace("Dt_nascimento","Nascimento") 
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sexo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tipo_Pessoa.Descricao)
+                @Html.DisplayNameFor(model => model.Tipo_Pessoa.Descricao).Replace("Descricao", "Tipo")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Validacao).Replace("Validacao","Ativo")
@@ -33,13 +33,13 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="txtCPF">
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
-            <td>
+            <td class="txtDT">
                 @Html.DisplayFor(modelItem => item.Dt_nascimento)
             </td>
             <td>
@@ -101,3 +101,10 @@
     </div>
   </div>
 </div>
+
+@section Scripts {
+    <script>
+        $('.txtCPF').mask('000.000.000-00');
+        $('.txtDT').mask('00/00/0000');        
+    </script>       
+}

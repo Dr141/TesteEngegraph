@@ -12,7 +12,7 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CPF)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10" id="txtCPF">
             @Html.DisplayFor(model => model.CPF)
         </dd>
         <dt class = "col-sm-2">
@@ -34,7 +34,7 @@
             @Html.DisplayFor(model => model.Sexo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tipo_Pessoa.Descricao)
+            @Html.DisplayNameFor(model => model.Tipo_Pessoa.Descricao).Replace("Descricao", "Tipo")
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Tipo_Pessoa.Descricao)
@@ -60,3 +60,9 @@
         </svg>
     </a>
 </div>
+
+@section Scripts {
+    <script>
+        $('#txtCPF').mask('000.000.000-00', { placeholder: "___.___.___-__" });
+    </script>       
+}

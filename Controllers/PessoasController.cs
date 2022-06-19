@@ -21,23 +21,32 @@ namespace TesteEngegraph.Controllers
 
         // GET: Pessoas
         public async Task<IActionResult> Index()
-        {
+        {     
+              if( _context.Tipo_Pessoa != null)
+              {
+                var testeEngegraphContext = _context.Tipo_Pessoa.Include(t => t.Pessoa);
+                await testeEngegraphContext.ToListAsync();
+              }
+              
               return _context.Pessoa != null ? 
-                          View(await _context.Pessoa.ToListAsync()) :
+                          View(await (_context.Pessoa).ToListAsync()) :
                           Problem("Entity set 'TesteEngegraphContext.Pessoa'  is null.");
         }
 
         // GET: Pessoas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Pessoa == null)
+            if (id == null || _context.Pessoa == null || _context.Tipo_Pessoa == null)
             {
                 return NotFound();
             }
 
             var pessoa = await _context.Pessoa
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (pessoa == null)
+            var tipo_Pessoa = await _context.Tipo_Pessoa
+                .Include(t => t.Pessoa)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (pessoa == null || tipo_Pessoa == null)
             {
                 return NotFound();
             }
@@ -48,6 +57,7 @@ namespace TesteEngegraph.Controllers
         // GET: Pessoas/Create
         public IActionResult Create()
         {
+            ViewData["PessoaId"] = new SelectList(_context.Pessoa, "Id", "Id");
             return View();
         }
 
@@ -56,7 +66,7 @@ namespace TesteEngegraph.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CPF,Nome,Dt_nascimento,Sexo,validacao")] Pessoa pessoa)
+        public async Task<IActionResult> Create([Bind("Id,CPF,Nome,Dt_nascimento,Sexo,validacao,Descricao")] Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +75,7 @@ namespace TesteEngegraph.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(pessoa);
-        }
+        }       
 
         // GET: Pessoas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -88,7 +98,7 @@ namespace TesteEngegraph.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CPF,Nome,Dt_nascimento,Sexo,validacao")] Pessoa pessoa)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CPF,Nome,Dt_nascimento,Sexo,validacao,Tipo_Pessoa")] Pessoa pessoa)
         {
             if (id != pessoa.Id)
             {
